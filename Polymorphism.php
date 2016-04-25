@@ -28,7 +28,7 @@ class CluedUp extends Employee {
 }
 
 /**
- * 
+ * 将一个Employee对象传递给NastyBoss::addEmployee()方法。我们也可以委托一个独立的类或方法来生成Employee对象
  */
 class NastyBoss {
     private $employees = array();
