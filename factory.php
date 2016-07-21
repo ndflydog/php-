@@ -53,7 +53,7 @@ class BloggsCommsManager extends CommsManager {
         return new BloggsApptEncoder();
     }
 
-    function getFooterText() {       
+    function getFooterText() {
         return "BloggsCal footer\n";
     }
 }
@@ -87,7 +87,7 @@ class CommsManager {
             case self::MEGA:
                 return "MegaCal header\n";
                 break;
-            
+
             default:
                 return "BloggsCal header\n";
                 break;
@@ -99,7 +99,7 @@ class CommsManager {
             case self::MEGA:
                 return new MegaApptEncoder();
                 break;
-            
+
             default:
                 return new BloggsApptEncoder();
                 break;
