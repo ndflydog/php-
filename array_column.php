@@ -15,8 +15,13 @@ $arr = [
     [
         'id' => '3',
         'name' => 'three',
+    ],
+    [
+        'id' => '4',
+        'name' => 'three',
     ]
 ];
 
-$arr = array_column($arr, null, 'name');
+//通过此可以去重从数据库中取出的数据
+$arr = array_column($arr, 'name', 'name');
 var_dump($arr);
