@@ -71,8 +71,8 @@ class Page
         $this->prevPage = ($this->current - 1 == 0) ? 1 : ($this->current - 1) ;
         $this->nextPage = ($this->current + 1 > $this->getPages()) ? $this->getPages : ($this->current + 1);
         $page = '';
-        $i = ($this->current > 5) ? ($this->current - 5) : 1;
-        $length = ($this->getPages() < 10) ? $this->getPages() : (10 - 1 + $i);
+        $i = ($this->current > 5) ? ($this->current - 5 < $this->getPages() - 10 ? $this->current : $this->getPages() - 10) : 1;
+        $length = ($this->getPages() < 10) ? $this->getPages() : (10 - 1 + $i ? 10 - 1 + $i : $this->getPages());
 
         for($i; $i <= $length; $i++) {
             $active = ($this->current == $i) ? 'active' : '';    
