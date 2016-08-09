@@ -32,8 +32,6 @@ class Page
         $this->limit = ($current - 1) * $pageSize;
         $this->offset = $pageSize;
         $this->current = $current;
-        $this->prevPage = ($current - 1 == 0) ? 1 : ($current - 1) ;
-        $this->nextPage = ($current + 1 > $this->getPages()) ? $this->getPages : ($current + 1);
         if(!$url) {
             #默认是当前路径
         }else {
@@ -67,12 +65,16 @@ class Page
         return ceil($this->count/$this->pageSize);
     }
 
-    #生成分页链接
+    #生成分页链接 页码数最多只有十个
     public function generatePagination()
     {
-        $length = $this->getPages();
+        $this->prevPage = ($this->current - 1 == 0) ? 1 : ($this->current - 1) ;
+        $this->nextPage = ($this->current + 1 > $this->getPages()) ? $this->getPages : ($this->current + 1);
         $page = '';
-        for($i = 1; $i <= $length; $i++) {
+        $i = ($this->current > 5) ? ($this->current - 5) : 1;
+        $length = ($this->getPages() < 10) ? $this->getPages() : (10 - 1 + $i);
+
+        for($i; $i <= $length; $i++) {
             $active = ($this->current == $i) ? 'active' : '';    
             $url = "$this->url?current=$i&pageSize=$this->pageSize";
             $page .= <<<EOT
@@ -112,7 +114,9 @@ EOT;
     }
 }
 
-$page = new Page(100);
+$page = new Page(1000);
 $page->pageSize = 30;
 $page->url = 'index';
-echo $page->generatePageSkit();
+$page->current = 8;
+
+echo $page->generatePagination();
