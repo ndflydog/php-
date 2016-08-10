@@ -110,7 +110,7 @@ var page = {
          }
      },
      //搜索设置事件
-     //这个根据项目的要求看需求 搜索是否分页 搜索的状态什么时候重置 F5重置这样就ok了
+     //这个根据项目的要求看需求 搜索结果分页 搜索的状态什么时候重置 F5重置这样就ok了
      "searchResponse" : function () {
          $(this.form).on('keydown', 'input', function(event) {
              event.preventDefault();
