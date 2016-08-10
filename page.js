@@ -47,7 +47,7 @@ var page = {
     //生成分页
     'generatePagination' : function () {
         var pagination = '';
-        var i = (this.pages > 10) ? ((this.current > 5) ? ((this.current - 5) < (this.pages - 10) ? this.current : (this.pages - 10)) : 1) : 1;
+        var i = (this.pages > 10) ? ((this.current > 5) ? ((this.current - 5) < (this.pages - 10) ? this.current - 5 : (this.pages - 10)) : 1) : 1;
         var length = (this.pages < 10) ? this.pages : (10 - 1 + i < this.pages ? 10 - 1 + i : this.pages);
         for(i; i <= length; i++) {
             pagination += '<li class = "'+(this.current == i ? "active" : "")+'"><a data-value="'+i+'" data-url="'+this.url+'?current='+i+'&pageSize='+this.pageSize+'">'+i+'</a><li>';
