@@ -110,6 +110,7 @@ var page = {
          }
      },
      //搜索设置事件
+     //这个根据项目的要求看需求 搜索是否分页 搜索的状态什么时候重置 F5重置这样就ok了
      "searchResponse" : function () {
          $(this.form).on('keydown', 'input', function(event) {
              event.preventDefault();
@@ -118,9 +119,26 @@ var page = {
                  return false;
              }
              //这个根据需要要重写
-             var value = $(event.target).val();
-             var name = $(event.target).attr('name');
-             page.search.name = value;
+             var form = $(event.target).parentsUntil('form').serializeArray();
+             
+             for (var i in form) {
+                 page.search.form[i].name = form[i].value;
+             }
+             //var value = $(event.target).val();
+             //var name = $(event.target).attr('name');
+             //page.search.name = value;
+             page.getResult();
+         });
+         //还有select的点击时间 timepicker的点击事件等
+         $(this.form).on('click', 'select', function(event) {
+             var form = $(event.target).parentsUntil('form').serializeArray();
+             
+             for (var i in form) {
+                 page.search.form[i].name = form[i].value;
+             }
+             //var value = $(event.target).val();
+             //var name = $(event.target).attr('name');
+             //page.search.name = value;
              page.getResult();
          });
      }
