@@ -1,4 +1,31 @@
+<form action="" method="">
+<table class="table-bordered table">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>sex</th>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <input type="text" name="id" value="" />
+                </div>
+            </td>
+            <td><input type="text" name="name" value="" /></td>
+            <td><input type="text" name="sex" value="" /></td>
+        </tr>
+    </thead>
+    <tbody id="tbody">
+    </tbody>
+</table>
+</form>
+<div>
+ <div id="pagination"></div>
+ <div id="perpage" class="col-md-2"></div>
+</div>
 <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.js"></script>
+<script>
 var page = {
     "url"       :   "/site/pages",
     "total"     :   null,
@@ -12,8 +39,8 @@ var page = {
     "form"      :   "form",
     //向服务器传递的信息对象
     "search"    :   {
-        "pageSize" : this.pageSize,
-        "current"  : this.current,    
+        pageSize : 30,
+        current  : 1, 
     },
     //获取分页信息
     "getResult" :   function (type = 'get', data = this.search, dataType = 'json') {
@@ -30,16 +57,22 @@ var page = {
     },
     //定义格式为 {code = 0,1 msg = '成功?失败?' data = [{'total' : 1}, {'result' : array}, {field:[]}]}    
     "success"   :   function(data) {
-        console.log(data);
         if(data.code == 0) {
             page.total = data.result.total;
             page.pages = Math.ceil(data.result.total / page.pageSize);
             var pagination = page.generatePagination();
             var tbody = page.generateTable(data.result.page, data.result.field);
             var perpage = page.generatePerPage();
-            $(page.pagination).html(pagination);
+
             $(page.tbody).html(tbody);
-            $(page.perpage).html(perpage);
+
+            if(page.pages > 1) {
+                $(page.pagination).html(pagination);
+                $(page.perpage).html(perpage);
+            } else {
+                $(page.pagination).html('');
+                $(page.perpage).html('');
+            }
         }else if(data.code == 1) {
             console.log(data.msg);
         }
@@ -63,9 +96,9 @@ var page = {
      //每页显示多少#perPage
      "generatePerPage" : function () {
          var perPage = '<select class="form-control">'
-            +'<option value="20">20</option>'
-            +'<option value="50">50</option>'
-            +'<option value="100">100</option>'
+            +'<option value="20" '+(this.pageSize == 20 ? "selected" : "")+'>20</option>'
+            +'<option value="50" '+(this.pageSize == 50 ? "selected" : "")+'>50</option>'
+            +'<option value="100" '+(this.pageSize == 100 ? "selected" : "")+'>100</option>'
             +'</select>';
         return perPage;
      },
@@ -89,6 +122,10 @@ var page = {
              event.preventDefault();
              var pageSize = $(event.target).val();   
              page.pageSize = pageSize;
+             page.search.pageSize = pageSize;
+
+             page.current = 1;
+             page.search.current = 1;
              page.getResult();
          });
      },
@@ -99,6 +136,7 @@ var page = {
              event.preventDefault();
              var value = $(event.target).data('value');
              page.current = value;
+             page.search.current = value;
              page.getResult();
          });
      },
@@ -113,16 +151,20 @@ var page = {
      //这个根据项目的要求看需求 搜索结果分页 搜索的状态什么时候重置 F5重置这样就ok了
      "searchResponse" : function () {
          $(this.form).on('keydown', 'input', function(event) {
-             event.preventDefault();
-             var code = event.code;
+             //event.preventDefault();
+             var code = event.keyCode;
              if(code != 13) {
-                 return false;
+                 return;
              }
              //这个根据需要要重写
-             var form = $(event.target).parentsUntil('form').serializeArray();
+             var form = $(event.target).parents('form').eq(0).serializeArray();
+             
              
              for (var i in form) {
-                 page.search.form[i].name = form[i].value;
+                 page.search[form[i].name] = null;
+                 if(form[i].value != '') {
+                    page.search[form[i].name] = form[i].value;
+                 }  
              }
              //var value = $(event.target).val();
              //var name = $(event.target).attr('name');
@@ -130,19 +172,21 @@ var page = {
              page.getResult();
          });
          //还有select的点击时间 timepicker的点击事件等
-         $(this.form).on('click', 'select', function(event) {
-             var form = $(event.target).parentsUntil('form').serializeArray();
+        //  $('time.piker').on('click', 'select', function(event) {
+        //      var form = $(event.target).parentsUntil('form').serializeArray();
              
-             for (var i in form) {
-                 page.search.form[i].name = form[i].value;
-             }
-             //var value = $(event.target).val();
-             //var name = $(event.target).attr('name');
-             //page.search.name = value;
-             page.getResult();
-         });
+        //      for (var i in form) {
+        //          page.search.form[i].name = form[i].value;
+        //      }
+        //      //var value = $(event.target).val();
+        //      //var name = $(event.target).attr('name');
+        //      //page.search.name = value;
+        //      page.getResult();
+        //  });
      }
 };
 page.getResult();
 page.perPageClick();
 page.paginationClick();
+page.searchResponse();
+</script>
