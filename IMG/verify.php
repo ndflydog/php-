@@ -22,8 +22,10 @@ class VerifyCode
 
     const BACKGROUND_TYPE_DOT = 2;
 
+    #code长度
     const LENGTH = 4;
 
+    #图片宽度
     const WIDTH = 60;
 
     const HEIGHT = 30;
@@ -121,6 +123,11 @@ class VerifyCode
             $this->generateLine();
         }
         return $this->generateImg();
+    }
+
+    public function getCode()
+    {
+        return $this->code;
     }
 }
 
