@@ -1,4 +1,5 @@
 <?php
+echo 1;die;
 #事务关闭自动提交
 #表类型是myisam竟然也可以使用事务
 $dsn = 'mysql:dbname=test;host=127.0.0.1';
