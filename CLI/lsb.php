@@ -5,29 +5,37 @@
     简单地说，这个关键字能够让你在上述例子中调用 test() 时引用的类是 B 而不是 A。最终决定不引入新的关键字，
     而是使用已经预留的 static 关键字。
 */
-class A {
-    public static function foo() {
-        static::who();
+class A 
+{
+    public static function foo() 
+    {
+        static::who();#在此触发了后期静态绑定
     }
 
-    public static function who() {
+    public static function who() 
+    {
         echo __CLASS__."\n";
     }
 }
 
-class B extends A {
-    public static function test() {
-        A::foo();
+class B extends A 
+{
+    public static function test() 
+    {
+        A::foo();       #非转发调用
         parent::foo();
         self::foo();
     }
 
-    public static function who() {
+    public static function who() 
+    {
         echo __CLASS__."\n";
     }
 }
-class C extends B {
-    public static function who() {
+class C extends B 
+{
+    public static function who() 
+    {
         echo __CLASS__."\n";
     }
 }
@@ -36,7 +44,7 @@ C::test();
 #C,
 #C
 /*
-    首先C::test()，进入test方法，A::foo()、parent::foo()、self::foo()这三个方法调用的“上一次
+首先C::test()，进入test方法，A::foo()、parent::foo()、self::foo()这三个方法调用的“上一次
 
 非转发调用”存储的类名就是C啦。
 
