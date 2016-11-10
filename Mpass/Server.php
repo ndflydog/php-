@@ -148,10 +148,10 @@ class Mpass_Server {
 	}
 
 	protected function _execute($client) {
-
 		$pid = pcntl_fork(); 
 
         if ($pid == 0) {
+			echo 'fork child start!\n';
             /** this is a child */
 			$this->is_master = FALSE;
 
