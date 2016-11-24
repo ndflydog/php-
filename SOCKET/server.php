@@ -3,7 +3,7 @@
 set_time_limit(0);
 
 $host = "127.0.0.1";
-$port = 12388;
+$port = 4000;
 
 $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)
     or die("socket_create() failed:". socket_strerror(socket_last_error()));
