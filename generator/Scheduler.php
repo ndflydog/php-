@@ -1,14 +1,16 @@
 <?php
+namespace app;
+
 class Scheduler {
     protected $maxTaskId = 0;
     protected $taskMap = []; // taskId => task
     protected $taskQueue;
  
     public function __construct() {
-        $this->taskQueue = new SplQueue();
+        $this->taskQueue = new \SplQueue();
     }
  
-    public function newTask(Generator $coroutine) {
+    public function newTask(\Generator $coroutine) {
         $tid = ++$this->maxTaskId;
         $task = new Task($tid, $coroutine);
         $this->taskMap[$tid] = $task;
@@ -24,7 +26,12 @@ class Scheduler {
         while (!$this->taskQueue->isEmpty()) {
             $task = $this->taskQueue->dequeue();
             $task->run();
- 
+            
+            if ($retval instanceof SystemCall) {
+                $retval($task, $this);
+                continue;
+            }
+
             if ($task->isFinished()) {
                 unset($this->taskMap[$task->getTaskId()]);
             } else {

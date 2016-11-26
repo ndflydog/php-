@@ -1,6 +1,9 @@
 <?php
-include 'Scheduler.php';
-include 'Task.php';
+//namespace app\generator;
+
+include dirname(__DIR__).'/vendor/autoload.php';
+use app\Scheduler;
+
 function task1() {
     for ($i = 1; $i <= 10; ++$i) {
         echo "This is task 1 iteration $i.\n";

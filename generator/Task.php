@@ -1,4 +1,6 @@
 <?php
+namespace app;
+
 class Task
 {
     protected $taskId;
@@ -6,7 +8,7 @@ class Task
     protected $sendValue = null;
     protected $beforeFirstYield = true;
 
-    public function __construct($taskId, Generator $coroutine)
+    public function __construct($taskId, \Generator $coroutine)
     {
         $this->taskId = $taskId;
         $this->coroutine = $coroutine;
@@ -14,7 +16,10 @@ class Task
 
     public function getTaskId()
     {
-        return $this->taskId;
+        return new SystemCall(function(Task $task, Scheduler $scheduler) {
+            $task->setSendValue($task->getTaskId());
+            $scheduler->schedule($task);
+        });
     }
 
     public function setSendValue($sendValue)
