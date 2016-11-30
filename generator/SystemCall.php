@@ -1,6 +1,7 @@
 <?php
 namespace app;
 
+#系统类
 class SystemCall
 {
     protected $callback;
