@@ -1,6 +1,7 @@
 <?php
 namespace app;
 
+#调度类
 class Scheduler {
     protected $maxTaskId = 0;
     protected $taskMap = []; // taskId => task
