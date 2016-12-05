@@ -130,7 +130,7 @@ class Container2
                 #是一个类，递归解析
                 $className = lcfirst($dependency->name);
                 #先取出容器中绑定的类 否则自动绑定
-                if ($this->$className) {
+                if ($this->s[$className]) {
                     $dependencies[] = $this->$className;                    
                 } else {
                     $dependencies[] = $this->build($dependency->name);                                        
