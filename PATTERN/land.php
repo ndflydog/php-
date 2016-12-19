@@ -49,7 +49,7 @@ class background implements layer
 	}
 }
 
-#要被装饰的对象
+#装饰器
 abstract class onLayer implements layer
 {
 	private $_x;
@@ -109,12 +109,10 @@ class bird extends onLayer
 	}
 }
 
+#要被装饰的对象
 class downLayer implements layer
 {
-	private $_z;
 	private $_pic;
-	private $_width;
-	private $_height;
 	private $_html;
 	
 	public function loadPic(pic $pic)
