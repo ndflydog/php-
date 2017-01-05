@@ -1,4 +1,7 @@
 <?php
+/**
+ *php中的hash表扩容默认都是2的整数倍
+ */
 $size = pow(2, 16); 
  
 $startTime = microtime(true);
