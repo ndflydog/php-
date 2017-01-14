@@ -45,7 +45,7 @@ function quickC($start, $end, &$arr)
         $arr[$right] = $arr[$left];
         $arr[$left] = $tmp; 
     }
-    if ($right == $left) {
+    if ($base > $arr[$right]) {
         $arr[$start] = $arr[$right];
         $arr[$right] = $base;        
     }
