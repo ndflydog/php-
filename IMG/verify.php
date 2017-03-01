@@ -110,7 +110,6 @@ class VerifyCode
     protected function generateImg()
     {
         $textcolor = imagecolorallocate($this->resource, mt_rand(0, 156), mt_rand(0, 156), mt_rand(0, 156));
-        $px = (imagesx($this->resource) - 7.5 * strlen($string)) / 2;
         imagestring($this->resource, 5, mt_rand(0, $this->img_width / 4), mt_rand(0, $this->img_height / 2), $this->code, $textcolor);
         return imagepng($this->resource);
     }
