@@ -1,21 +1,22 @@
 <?php
 
 $pre = [];
-$handle = fopen('/home/fly/l3redis.log', 'r');
+$i = 1;
+$handle = fopen('243.txt', 'r');
 if ($handle) {
-    while (($buffer = fgets($handle, 4096)) !== false) {
-        $tmp = explode(':', $buffer)[0];
-        if (!$pre[$tmp]) {
-            $pre[$tmp] = 1;
-        }
+    while (($buffer = fgets($handle)) !== false) {
+        if(!trim($buffer)) continue;
+        $tmp = explode('----', $buffer);
+        if (empty($tmp)) continue;
+        $tmpStr = '韩服账号:'.$tmp[0].' 韩服密码:'.$tmp[1];
+        array_push($pre, $tmpStr);
+        unset($buffer);
+        unset($tmp);
     }
     if (!feof($handle)) {
         echo "Error: unexpected fgets() fail".PHP_EOL;
     }
     fclose($handle);
 }
-$keys = array_keys($pre);
-foreach($keys as $v) {
-    echo $v.PHP_EOL;
-}
-echo count($keys);
+$str = implode("\n", $pre);
+file_put_contents('/home/fly/share/hf.txt', $str);
