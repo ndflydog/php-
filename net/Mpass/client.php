@@ -1,6 +1,6 @@
 <?php
 
-require dirname(__FILE__).'/Request.php';
+require dirname(__FILE__) . '/Request.php';
 const STR_END = 'EXIT!';
 $res_socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 if (socket_connect($res_socket, '127.0.0.1', '8992')) {

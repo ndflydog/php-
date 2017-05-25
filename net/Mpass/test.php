@@ -1,5 +1,5 @@
 <?php
-require ('./Server.php');
+require('./Server.php');
 
 class TestPserver implements Mpass_IExecutor {
 	function execute(Mpass_Request $client) {
