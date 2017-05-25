@@ -6,7 +6,7 @@
 
  function S()
  {
-     require __DIR__.'/shell.php';
+     require __DIR__ . '/shell.php';
  }
 
  s();

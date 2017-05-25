@@ -1,24 +1,20 @@
 <?php
 
-/**
- *静态变量是是属于类的只能通过类来访问
- */
-class Base
-{
-    public static $a ;
-
-    public function set($a)
-    {
-        Base::$a  = $a;
+class A {
+    public static function who() {
+        echo get_called_class();
     }
-
-    public function get()
-    {
-        return Base::$a;
+    public static function test() {
+        static::who(); // 后期静态绑定从这里开始
     }
 }
 
-$t = new Base();
-$t->set(2);
+class B extends A {
+    public static function who() {
+        echo get_called_class();
+    }
+}
 
-echo Base::$a;
+A::test();
+echo PHP_EOL;
+B::test();

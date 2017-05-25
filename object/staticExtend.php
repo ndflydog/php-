@@ -1,7 +1,7 @@
 <?php
 
 class A {
-  public static $a = 1.__CLASS__;
+  public static $a = __CLASS__;
 }
 
 class B extends A {
