@@ -21,6 +21,8 @@ class Pagination
 
     const PAGE_PARAM = 'page';
 
+    const PAGESIZE_PARAM = 'pageSize';
+
     protected function __construct(array $opts = [], array $search = [])
     {
         foreach ($opts as $k => $v) {
@@ -33,8 +35,10 @@ class Pagination
 
     protected function init()
     {
-        $searchUrl = $this->getSearch();
-        $allPages = ceil($this->count / $this->pageSize);
+        $searchUrlOrigin = $this->getSearch();
+        $searchUrl = '&'.static::PAGESIZE_PARAM.'='.$this->pageSize.'&'.$searchUrlOrigin;
+
+        $allPages = $this->getAllPages();
         $last= $this->current - 1;
         $next = $this->current + 1;
 
@@ -46,7 +50,24 @@ class Pagination
         $this->endHidden = $this->current < $allPages ? 'false' : 'true';
         $this->startHref = $last > 0 ? $this->url.'?'.static::PAGE_PARAM.'='.($this->current - 1).$searchUrl : 'javascript:;';
         $this->endHref = $next < $allPages ? $this->url.'?'.static::PAGE_PARAM.'='.($this->current + 1).$searchUrl : 'javascript:;';
-        $this->select = $this->url.'?'.static::PAGE_PARAM.'='.$this->current.$this->searchUrl;
+        $this->select = $this->url.'?'.static::PAGE_PARAM.'=1'.$searchUrlOrigin;
+
+        $this->selected();
+        $loop = $this->getLoop();
+        $this->loop = $loop;
+
+    }
+    protected function getAllPages()
+    {
+        $allPages = ceil($this->count / $this->pageSize);
+        if ($allPages < $this->page) {
+            $this->page = $allPages;
+        }
+        return $allPages;
+    }
+
+    protected function selected()
+    {
         switch ($this->pageSize){
             case 30:
                 $this->isSelect30 = 'selected="true"';
@@ -64,9 +85,6 @@ class Pagination
                 $this->isSelect100 = 'selected="true"';
                 break;
         }
-        $loop = $this->getLoop();
-        $this->loop = $loop;
-
     }
 
     protected function getSearch()
