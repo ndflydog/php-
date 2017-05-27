@@ -23,7 +23,7 @@ class Pagination
 
     const PAGESIZE_PARAM = 'pageSize';
 
-    protected function __construct(array $opts = [], array $search = [])
+    public function __construct(array $opts = [], array $search = [])
     {
         foreach ($opts as $k => $v) {
             $this->$k = $v;
