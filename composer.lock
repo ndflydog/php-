@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6d990ae3159846db215122005b44b5b6",
-    "content-hash": "84a807d5281cd5ccc93b818908b79477",
+    "hash": "34b8421e29620b42e48c0deb78a0e5b9",
+    "content-hash": "8820b1e0d14af0cfe8691a3d547e146f",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -39,8 +39,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/",
-                     "app\\" : "generator/"
+                    "Doctrine\\Instantiator\\": "src/Doctrine/Instantiator/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -61,6 +60,61 @@
                 "instantiate"
             ],
             "time": "2015-06-14 21:17:01"
+        },
+        {
+            "name": "graze/sort",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/graze/sort.git",
+                "reference": "50f0896363f177f68be248d7bad9eb0c2f7f666c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/graze/sort/50f0896363f177f68be248d7bad9eb0c2f7f666c.zip",
+                "reference": "50f0896363f177f68be248d7bad9eb0c2f7f666c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "adlawson/timezone": "~1.0",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/fn.php"
+                ],
+                "psr-4": {
+                    "Graze\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graze tech team",
+                    "homepage": "https://github.com/graze/sort/graphs/contributors"
+                }
+            ],
+            "description": "A collection of array sorting transforms and functions",
+            "homepage": "https://github.com/graze/sort",
+            "keywords": [
+                "array",
+                "collection",
+                "list",
+                "order",
+                "ordered",
+                "schwartzian",
+                "sort",
+                "sorting",
+                "transform"
+            ],
+            "time": "2014-09-23 17:01:23"
         },
         {
             "name": "myclabs/deep-copy",

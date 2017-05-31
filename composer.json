@@ -1,6 +1,7 @@
 {
     "require": {
-        "phpunit/phpunit": "^5.5"
+        "phpunit/phpunit": "^5.5",
+        "graze/sort": "^2.0"
     },
     "autoload" : {
         "psr-4" : {

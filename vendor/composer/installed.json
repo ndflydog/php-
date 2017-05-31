@@ -1350,5 +1350,62 @@
             "testing",
             "xunit"
         ]
+    },
+    {
+        "name": "graze/sort",
+        "version": "2.0.1",
+        "version_normalized": "2.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/graze/sort.git",
+            "reference": "50f0896363f177f68be248d7bad9eb0c2f7f666c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://files.phpcomposer.com/files/graze/sort/50f0896363f177f68be248d7bad9eb0c2f7f666c.zip",
+            "reference": "50f0896363f177f68be248d7bad9eb0c2f7f666c",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3"
+        },
+        "require-dev": {
+            "adlawson/timezone": "~1.0",
+            "phpunit/phpunit": "~4.0"
+        },
+        "time": "2014-09-23 17:01:23",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "files": [
+                "src/fn.php"
+            ],
+            "psr-4": {
+                "Graze\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Graze tech team",
+                "homepage": "https://github.com/graze/sort/graphs/contributors"
+            }
+        ],
+        "description": "A collection of array sorting transforms and functions",
+        "homepage": "https://github.com/graze/sort",
+        "keywords": [
+            "array",
+            "collection",
+            "list",
+            "order",
+            "ordered",
+            "schwartzian",
+            "sort",
+            "sorting",
+            "transform"
+        ]
     }
 ]
