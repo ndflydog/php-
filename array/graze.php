@@ -20,5 +20,5 @@ $arr = [
     return $v['a'];
 }));*/
 
-Sort::schwartzian($arr, function ($v){return $v['a'];});
-var_dump($arr);
+;
+var_dump(Sort\schwartzian($arr, function ($v){return $v['a'];}));
