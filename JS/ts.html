@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="dd">点点</button>
+    <script src="./socket.io.js"></script>
+    <script>
+        var socket = io('http://www.php-.com:8888');
+        socket.on('news', function (data) {
+            console.log(data);
+            socket.emit('my other event', { my: 'data' });
+        });
+        var bool = 0;
+        var dd = document.getElementById('dd');
+        dd.addEventListener('click', function () {
+            socket.emit('start');
+        })
+    </script>
+</body>
+</html>

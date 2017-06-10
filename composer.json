@@ -1,7 +1,8 @@
 {
     "require": {
         "phpunit/phpunit": "^5.5",
-        "graze/sort": "^2.0"
+        "graze/sort": "^2.0",
+        "phpoffice/phpexcel": "^1.8"
     },
     "autoload" : {
         "psr-4" : {
