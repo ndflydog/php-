@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        .black{
+            background-color: black;
+            color:white;
+            font-size: 18px;
+        }
+        .my-pannel {
+            position: absolute;
+            left: 40%;
+            top: 30%;
+            width: 400px;
+            border:1px solid blue;
+        }
+    </style>
+</head>
+<body>
+<button id="rename">点我</button>
+asfafasfasfasf
+</body>
+</html>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script>
+    function Modal(msg, callback) {
+        this.callback = callback;
+        this.id = '#the-pannel';
+        this.html = '<div class="panel panel-default my-pannel" id="the-pannel">'
+                + '<div class="panel-heading">'
+                + '<strong>' + msg + '</strong>'
+                + '</div>'
+                + '<div class="panel-body">'
+                + '<button class="btn btn-warning" id="sure" style="width: 170px;">确定</button>'
+                + '<button class="btn btn-default" id="cancel" style="width: 170px;margin-left: 27px;">取消</button>'
+                + '</div>'
+            + '</div>'
+        ;
+    }
+    Modal.prototype.init = function () {
+        $('body').prepend(this.html);
+
+        var that = this;
+        $(this.id).on('click', function (e) {
+            e.stopPropagation();
+            var id = $(e.target).attr('id');
+            if (!id) {
+                return false;
+            }
+            var bool = false;
+            if ('sure' == id) {
+                bool = true;
+            } else if ('cancel' == id) {
+                bool = false;
+            }
+            that.destory();
+            that.callback(bool);
+        });
+    };
+    Modal.prototype.destory = function () {
+        $(this.id).unbind('click');
+        $(this.id).remove();
+    };
+
+    $(function () {
+        $('#rename').on('click', function () {
+            var modal = new Modal('确认要?', function (bool) {
+                if (bool) {
+                    //do this
+                }
+            });
+            modal.init();
+        });
+    });
+</script>
