@@ -19,16 +19,24 @@ class ProcessQueueClass
         $this->msgQueue = msg_get_queue($id);
     }
 
+    public $data = [
+        [1,2,3,4,5,6,7,8,9],
+        [2,2,3,4,5,6,7,8,9],
+        [3,2,3,4,5,6,7,8,9],
+        [4,2,3,4,5,6,7,8,9],
+    ];
+
     protected function createProgress()
     {
         $pid = pcntl_fork();
+        $data = $this->getData();#获取数据要在主程序中
         if ( $pid == -1) {
             // 创建失败
             throw new \Exception('fork progress error!');
         } else if ($pid == 0) {
             // 子进程执行程序
             $pid = posix_getpid();
-            $this->work();
+            $this->work($data);
             exit("({$pid})child progress end!\n");
         }else{
             // 父进程执行程序
@@ -53,11 +61,17 @@ class ProcessQueueClass
     }
 
     #覆盖此方法
-    public function work()
+    public function getData()
     {
-        $arr = [1,2,3,4,5,6,7,8,9];
+        $data = $this->data[0];
+        $this->data = array_slice($this->data, 1);
+        return $data;
+    }
+
+    public function work($data)
+    {
         $pid = posix_getpid();
-        $sum = array_sum($arr);
+        $sum = array_sum($data);
         echo "$pid 进程计算的值为$sum".PHP_EOL;
         msg_send($this->msgQueue, 1, $sum);
     }
@@ -81,4 +95,4 @@ class ProcessQueueClass
     }
 }
 
-echo (new ProcessQueueClass())->done();
+echo (new ProcessQueueClass(4))->done();
