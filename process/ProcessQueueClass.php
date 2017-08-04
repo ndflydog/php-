@@ -17,6 +17,19 @@ class ProcessQueueClass
         $this->cpu_cores = $cores ? $cores : substr(trim(exec('cat /proc/cpuinfo| grep "cpu cores"| uniq')), -1);
         $id = ftok(__FILE__,'m');
         $this->msgQueue = msg_get_queue($id);
+        $tmp = [];
+        for ($i = 0; $i < 2000000; $i++) {
+            $tmp[] = $i;
+        }
+        // $this->data = [
+        //     array_merge($tmp,$tmp,$tmp,$tmp)
+        // ];
+        $this->data = [
+             $tmp,
+             $tmp,
+             $tmp,
+             $tmp,
+        ];
     }
 
     public $data = [
@@ -95,4 +108,12 @@ class ProcessQueueClass
     }
 }
 
+$start = microtime_float();
 echo (new ProcessQueueClass(4))->done();
+echo '执行时间'.(microtime_float() - $start).PHP_EOL;
+
+function microtime_float()
+{
+    list($usec, $sec) = explode(" ", microtime());
+    return ((float)$usec + (float)$sec);
+}
