@@ -1,0 +1,5 @@
+{
+    "output": "test.phar",
+    "main": "index.php",
+    "base-path": "./"
+}
