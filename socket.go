@@ -1,4 +1,5 @@
 package main
+
 import (
 	"flag"
 	"fmt"
@@ -6,8 +7,10 @@ import (
 	"net"
 	"os"
 )
+
 var host = flag.String("host", "", "host")
 var port = flag.String("port", "3334", "port")
+
 func main() {
 	flag.Parse()
 	var l net.Listener
@@ -42,22 +45,25 @@ func handleRequest(conn net.Conn) {
 	}
 	fmt.Printf("read %d bytes, content is %s\n", n, string(buf[:n]))
 
+	var i int
+	for i = 0; i < 10000000000; i++ {
+	}
 	data := []byte("Golang")
 	n, err = conn.Write(data)
-	if (err != nil){
+	if err != nil {
 		fmt.Printf("写入失败\n")
 	}
-	
-    // var total int
-    // for {
-    //     if err != nil {
-    //         total += n
-    //         fmt.Printf("write %d bytes, error:%s\n", n, err)
-    //         break
-    //     }
-    //     total += n
-    //     fmt.Printf("write %d bytes this time, %d bytes in total\n", n, total)
-    // }
+
+	// var total int
+	// for {
+	//     if err != nil {
+	//         total += n
+	//         fmt.Printf("write %d bytes, error:%s\n", n, err)
+	//         break
+	//     }
+	//     total += n
+	//     fmt.Printf("write %d bytes this time, %d bytes in total\n", n, total)
+	// }
 
 	for {
 		io.Copy(conn, conn)
