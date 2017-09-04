@@ -46,9 +46,11 @@ func handleRequest(conn net.Conn) {
 	fmt.Printf("read %d bytes, content is %s\n", n, string(buf[:n]))
 
 	var i int
-	for i = 0; i < 10000000000; i++ {
+	var s string
+	for i = 0; i < 1000; i++ {
+		s += "Golang"
 	}
-	data := []byte("Golang")
+	data := []byte(s)
 	n, err = conn.Write(data)
 	if err != nil {
 		fmt.Printf("写入失败\n")

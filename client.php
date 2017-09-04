@@ -25,12 +25,12 @@ if (!socket_write($socket, $in, strlen($in))) {
 
 $out = '';
 while ($buf = socket_read($socket, 1024)) {
+    $out .= $buf;    
     if ((time() - $time) > LIMIT || strlen($buf) < 1024) {
-        $out .= $buf;
         break;
     }
 }
-echo "接受内容为：$out \n";
+echo "接受内容为：$out {".strlen($out)."}\n";
 
 echo '时间'.(time() - $time).PHP_EOL;
 socket_close($socket);
