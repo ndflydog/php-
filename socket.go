@@ -12,6 +12,7 @@ var host = flag.String("host", "", "host")
 var port = flag.String("port", "3334", "port")
 
 func main() {
+	counter := 0
 	flag.Parse()
 	var l net.Listener
 	var err error
@@ -28,8 +29,10 @@ func main() {
 			fmt.Println("Error accepting: ", err)
 			os.Exit(1)
 		}
+		counter++
 		//logs an incoming message
 		fmt.Printf("Received message %s -> %s \n", conn.RemoteAddr(), conn.LocalAddr())
+		fmt.Println(counter)
 		// Handle connections in a new goroutine.
 		go handleRequest(conn)
 	}
