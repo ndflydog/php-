@@ -13,14 +13,14 @@ typedef struct _yar_header {
     unsigned int   body_len;      // request body len
 }
 */
-function yar_php_pack($method, $params)
+function yar_pack($method, $params, $package = 'PHP')
 {
     $request = [
         'i' => time(),
         'm' => $method,
         'p' => $params,
     ];
-    $body = str_pad('PHP', 8, chr(0)) . serialize($request);
+    $body = str_pad($package, 8, chr(0)) . ($package == 'PHP' ? serialize($request) : json_encode($request));
     $transaction = sprintf('%08x', mt_rand());
     $header = $transaction; //transaction id
     $header .= sprintf('%04x', 0); //protocl version
@@ -41,6 +41,7 @@ function yar_php_pack($method, $params)
 
 /**
  * @param string $str
+ * @param string $package PHP|JSON
  * @throws Exception
  * array [
  *        "i" => '', //time
@@ -50,9 +51,9 @@ function yar_php_pack($method, $params)
  *        "e" => '', //error or exception
  *    ]
  */
-function yar_php_unpack($str)
+function yar_unpack($str, $package = 'PHP')
 {
-    $ret = unserialize(substr($str, 82 + 8));
+    $ret = $package == 'PHP' ? unserialize(substr($str, 82 + 8)) : json_decode(substr($str, 82 + 8), true);
 
     if ($ret['s'] === 0) {
         return $ret['r'];
@@ -63,7 +64,8 @@ function yar_php_unpack($str)
     }
 }
 
-$data  = yar_php_pack('getLastArr', []);
+$package = 'JSON';
+$data  = yar_pack('getLastArr', [], $package);
 $url = 'http://t.lonlife.cn:9300/common/services/userService';
 
 $ch = curl_init();
@@ -82,4 +84,5 @@ if (200 != $curl_info['http_code']) {
     die($curl_info);
 }
 
-var_dump(yar_php_unpack($content));
+echo substr($content, 82 + 8);
+var_dump(yar_unpack($content, $package));
