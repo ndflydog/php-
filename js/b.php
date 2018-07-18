@@ -1,3 +1,4 @@
 <?php
 
-var_dump($_SERVER);
+session_start();
+echo 1;
