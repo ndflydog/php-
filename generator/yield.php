@@ -16,17 +16,18 @@
 // echo $y->current();
 function printer()
 {
+    $i = 0;
     while(true) {
-        $string = (yield 1);
-        echo 'gg'.$string.PHP_EOL;
+        $string = (yield $i++);
     }
 }
 
 $printer = printer();
-$printer->send('haha');
-echo $printer->current();
-$printer->next();
-echo $printer->current();
-$printer->next();
-echo $printer->current();
+echo $printer->send('haha').PHP_EOL; //运行到yield并返回值
+echo $printer->send('haha2').PHP_EOL; //运行到yield并返回值 send 也相当于调用了一次 next
+echo $printer->current().PHP_EOL;
+$printer->next().PHP_EOL;
+echo $printer->current().PHP_EOL;
+$printer->next().PHP_EOL;
+echo $printer->current().PHP_EOL;
 //echo $printer->send('hello world!');
